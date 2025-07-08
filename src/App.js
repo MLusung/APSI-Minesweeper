@@ -130,17 +130,20 @@ function App() {
               </button>
             ))}
           </div>
+          <div className="controls">
+            <button className="restart" onClick={restart}>Restart Game</button>
+            <button className='change-side' onClick={() => {
+              setPlayerChosen(false);
+              setGameOver(false);
+              setWinner('');
+              setRevealed(Array(36).fill(false));
+              setImages(randomizedBoard());
+            }}>
+              Change Side
+            </button>
+            <button className="reveal-all" onClick={() => setRevealed(Array(36).fill(true))}>Reveal All</button>
+          </div>
           {/* Restart and Change Side buttons */}
-          <button className='restart' onClick={restart}>Restart Game</button>
-          <button className='change-side' onClick={() => {
-          setPlayerChosen(false);
-          setGameOver(false);
-          setWinner('');
-          setRevealed(Array(36).fill(false));
-          setImages(randomizedBoard());
-        }}>
-          Change Side
-        </button>
         </>
       )}
     </div>

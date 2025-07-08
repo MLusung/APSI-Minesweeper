@@ -109,23 +109,6 @@ div > b, p > b {
   cursor: pointer; 
 }
 
-
-/* Restart button */
-.restart {
-  padding: 10px 20px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  background: #4CAF50;
-  color: white;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.restart:hover {
-  background: #388e3c;
-}
-
 /* Choose a player button */
 .choose-player {
   text-align: center;
@@ -148,19 +131,39 @@ div > b, p > b {
   background-color: #388e3c;
 }
 
-/* Change side button */
-.change-side {
-  margin-top: 5px;
+/* Container for the buttons */
+.controls {
+  margin-top: 15px;
+  display: flex;
+  gap: 12px;            /* space between buttons */
+  justify-content: center;
+  flex-wrap: wrap;       /* wrap on smaller screens */
+}
+
+/* Common styles for all control buttons */
+.controls button {
   padding: 10px 20px;
   font-size: 1rem;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #4CAF50;
   color: white;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s ease;
+  min-width: 120px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16);
 }
-.change-side:hover {
+
+.controls button:hover {
   background-color: #388e3c;
+}
+
+/* Optional: separate styling for Reveal All button if you want a different color */
+.reveal-all {
+  background-color: #2196F3;  /* blue */
+}
+
+.reveal-all:hover {
+  background-color: #1769aa;
 }
 
