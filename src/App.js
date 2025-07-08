@@ -44,47 +44,41 @@ function App() {
   }
 
   //clicking tiles
-  function handleClick(click){
-    if (gameOver || revealed[click]) return; //Will noit be able to click if the game is over
+  function handleClick(click) {
+  if (gameOver || revealed[click]) return; // Prevent clicks if game over or already revealed
 
-    //Will reveal the tiles
-    const updateRevealed = [...revealed];
-    updateRevealed[click] = true;
-    setRevealed(updateRevealed);
+  // Reveal the clicked tile
+  const updateRevealed = [...revealed];
+  updateRevealed[click] = true;
+  setRevealed(updateRevealed);
 
-    //Check if the tile matches the current player type
-    if (imges[click].type === player){
-      //then reveal it again
-      const updateRevealed = [...revealed];
-      updateRevealed[click] = true;
-      setRevealed(updateRevealed);
-      
-      //Check if thgis was the last tile of player type
-      if (player === 'chicken' && chickenLeft === 1){
-        setGameOver(true);
-        setWinner('Chicken Player')
-        setScore(prev => ({...prev, chicken: prev.chicken + 1}));
-      }
-      else if(player === 'banana' && bananaLeft === 1){
-        setGameOver(true);
-        setWinner('Banana Player')
-        setScore(prev => ({...prev, banana: prev.banana + 1}));
-      } 
-      //otherwise swithc to hte next player
-      else{
-        setPlayer(player === "chicken" ? "banana" : "chicken");
-      }
-    }else{
-      //If wrong tile is clicked, other player instanly wins
+  // Check if clicked tile matches player's type
+  if (imges[click].type === player) {
+    // Check if this was the last tile of player's type
+    if (
+      (player === 'chicken' && chickenLeft === 1) ||
+      (player === 'banana' && bananaLeft === 1)
+    ) {
       setGameOver(true);
-      const winPlayer = player === 'chicken' ? 'Banana Player' : 'Chicken Player';
-      setWinner(winPlayer);
-      setScore(prev => player === 'chicken' 
-        ? {...prev, banana: prev.banana + 1} 
-        : {...prev, chicken: prev.chicken + 1}
-      );   
+      setWinner(player.charAt(0).toUpperCase() + player.slice(1) + ' Player');
+      setScore(prev => ({
+        ...prev,
+        [player]: prev[player] + 1,
+      }));
     }
+    // No switch turn here anymore - player keeps playing
+  } else {
+    // Wrong tile clicked — game over, other player wins
+    setGameOver(true);
+    const winPlayer = player === 'chicken' ? 'Banana Player' : 'Chicken Player';
+    setWinner(winPlayer);
+    setScore(prev => 
+      player === 'chicken' 
+        ? { ...prev, banana: prev.banana + 1 } 
+        : { ...prev, chicken: prev.chicken + 1 }
+    );
   }
+}
 
   //Restart
   function restart(){
@@ -141,7 +135,15 @@ function App() {
           </div>
           {/* Restart and Change Side buttons */}
           <button className='restart' onClick={restart}>Restart Game</button>
-          <button className='change-side' onClick={() => setPlayer(player === 'chicken' ? 'banana' : 'chicken')}>Change Side</button>
+          <button className='change-side' onClick={() => {
+            setPlayerChosen(false);
+            setGameOver(false);
+            setWinner('');
+            setRevealed(Array(36).fill(false));
+            setImages(randomizedBoard());
+          }}>
+            Change Side
+          </button>
         </>
       )}
     </div>
