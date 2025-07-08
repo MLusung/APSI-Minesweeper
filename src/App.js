@@ -111,10 +111,7 @@ function App() {
           </div>
           <p>
             You are <b>{player.charAt(0).toUpperCase() + player.slice(1)} Player</b>.<br />
-            {gameOver
-              ? <span className='winner'>{winner} wins!</span>
-              : <>Current turn: <b>{player.charAt(0).toUpperCase() + player.slice(1)} Player</b></>
-            }
+            {gameOver && <span className='winner'>{winner} wins!</span>}
           </p>
            {/* The game board */}
           <div className='grid'>
@@ -136,14 +133,14 @@ function App() {
           {/* Restart and Change Side buttons */}
           <button className='restart' onClick={restart}>Restart Game</button>
           <button className='change-side' onClick={() => {
-            setPlayerChosen(false);
-            setGameOver(false);
-            setWinner('');
-            setRevealed(Array(36).fill(false));
-            setImages(randomizedBoard());
-          }}>
-            Change Side
-          </button>
+          setPlayerChosen(false);
+          setGameOver(false);
+          setWinner('');
+          setRevealed(Array(36).fill(false));
+          setImages(randomizedBoard());
+        }}>
+          Change Side
+        </button>
         </>
       )}
     </div>
